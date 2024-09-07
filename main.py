@@ -19,10 +19,18 @@ def import_module(file_name):
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-# Function to find all .py files in the current directory
+# Function to handle user input and check for exit command
+def get_input_with_exit(prompt):
+    user_input = input(prompt).strip()
+    if user_input.lower() == 'exit':
+        print(colored("\nExiting the quiz. Goodbye!", 'red', attrs=['bold']))
+        exit()
+    return user_input
+
+# Function to find all .py files with 'pattern' in their name in the current directory
 def find_pattern_files():
     pattern_files = [
-        f for f in os.listdir('.') if f.endswith('.py') and f != os.path.basename(__file__)
+        f for f in os.listdir('.') if f.endswith('.py') and f != os.path.basename(__file__) and 'pattern' in f.lower()
     ]
     # Sort files according to the specified hierarchy
     hierarchy = ['single', 'double', 'triple', 'continue', 'complex']
@@ -43,7 +51,7 @@ def display_file_menu(pattern_files):
     for i, file in enumerate(pattern_files, 1):
         display_name = convert_filename_to_display_name(file)
         print(f"{i}. {display_name}")
-    choices = input(Fore.YELLOW + "\nEnter your choices (comma-separated): " + Style.RESET_ALL).split(",")
+    choices = get_input_with_exit(Fore.YELLOW + "\nEnter your choices (comma-separated) or 'exit' to quit: " + Style.RESET_ALL).split(",")
     selected_files = [
         pattern_files[int(choice.strip()) - 1] for choice in choices
         if choice.strip().isdigit() and 1 <= int(choice.strip()) <= len(pattern_files)
@@ -95,7 +103,7 @@ def present_quiz(quiz_pool, explanations):
         for idx, (opt_name, _, _, _, _) in enumerate(options):
             print(f"{option_letters[idx]}. {opt_name}")
 
-        user_answer = input(Fore.YELLOW + "Your answer: " + Style.RESET_ALL).strip().upper()
+        user_answer = get_input_with_exit(Fore.YELLOW + "Your answer (or 'exit' to quit): " + Style.RESET_ALL).upper()
         if user_answer == option_letters[correct_option]:
             print(colored("\nCorrect!\n", 'green', attrs=['bold']))
 
@@ -107,7 +115,7 @@ def present_quiz(quiz_pool, explanations):
                 print(f"{option_letters[idx]}. {exp}")
 
             correct_explanation = explanation_options.index(explanations[name][0])
-            user_explanation = input(Fore.YELLOW + "Your explanation: " + Style.RESET_ALL).strip().upper()
+            user_explanation = get_input_with_exit(Fore.YELLOW + "Your explanation (or 'exit' to quit): " + Style.RESET_ALL).upper()
             if user_explanation == option_letters[correct_explanation]:
                 print(colored("\nCorrect Explanation!\n", 'green', attrs=['bold']))
 
@@ -125,7 +133,7 @@ def present_quiz(quiz_pool, explanations):
                     print(f"{option_letters[idx]}. {action}")
 
                 correct_action = trading_options.index(trading_action)
-                user_action = input(Fore.YELLOW + "Your trading action: " + Style.RESET_ALL).strip().upper()
+                user_action = get_input_with_exit(Fore.YELLOW + "Your trading action (or 'exit' to quit): " + Style.RESET_ALL).upper()
                 if user_action == option_letters[correct_action]:
                     print(colored("\nCorrect Trading Action!\n", 'green', attrs=['bold']))
                 else:
@@ -135,7 +143,7 @@ def present_quiz(quiz_pool, explanations):
         else:
             print(colored(f"\nWrong! The correct answer is: {name}\n", 'red', attrs=['bold']))
 
-        input(Fore.YELLOW + "\nPress Enter to continue..." + Style.RESET_ALL)
+        get_input_with_exit(Fore.YELLOW + "\nPress Enter to continue or type 'exit' to quit: " + Style.RESET_ALL)
 
 # Main function to run the quiz
 def main():

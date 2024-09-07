@@ -1,107 +1,107 @@
 explanations = {
     "Doji": [
-        "A candlestick pattern that reflects market indecision, where buying and selling pressures are nearly equal.",
-        "Characterized by having almost identical open and close prices, suggesting a balance between buyers and sellers.",
-        "Commonly found at potential turning points, indicating a possible reversal or pause in the market trend."
+        "A candlestick pattern that reflects market indecision, where neither buyers nor sellers have a definitive advantage.",
+        "Often appears when both sides are testing boundaries without making substantial gains, reflecting uncertainty.",
+        "Commonly found at potential turning points, suggesting that the market may be pausing before a move in either direction."
     ],
     "Bullish Marubozu": [
-        "A strong bullish pattern showing uninterrupted buying pressure throughout the trading session.",
-        "Lacks upper and lower wicks, indicating that the opening price was the lowest and the closing price was the highest.",
-        "Demonstrates a dominant upward movement without any significant opposition from sellers."
+        "Represents a session dominated by buyers, where buying pressure persists throughout the period.",
+        "Illustrates a day of strong confidence from the bulls, with minimal resistance encountered from sellers.",
+        "Signals a clear indication of buying strength, often suggesting further upward momentum."
     ],
     "Bearish Marubozu": [
-        "A strong bearish pattern indicating consistent selling pressure from the start to the end of the trading session.",
-        "Characterized by no wicks, where the highest price is the opening and the lowest price is the closing.",
-        "Shows that sellers were in complete control, with buyers unable to push prices higher at any point."
+        "A pattern that conveys continuous selling pressure, reflecting a session controlled by sellers.",
+        "Demonstrates a lack of buying interest, with sellers maintaining dominance without interruptions.",
+        "Often serves as a strong signal of bearish sentiment, indicating a possible continuation of the downward trend."
     ],
     "Hammer": [
-        "A bullish reversal pattern that reflects a market rebound after significant selling pressure.",
-        "Features a long lower shadow, showing that sellers initially drove prices down, but buyers were able to push them back up.",
-        "Often signals a potential trend change from downwards to upwards, particularly after a sustained decline."
+        "Suggests that despite initial selling pressure, buyers regained control by the close of the session.",
+        "Indicates a potential market rebound, often observed after significant declines.",
+        "Often viewed as a signal that downward momentum may be losing strength, hinting at a possible trend reversal."
     ],
     "Inverted Hammer": [
-        "A pattern that suggests potential bullish reversal following a downtrend, marked by an upper shadow.",
-        "Shows that buyers tried to push prices higher, facing initial resistance but leaving room for a trend shift.",
-        "Signals a possible market reversal, where selling pressure may be weakening."
+        "Highlights a potential bullish reversal, suggesting a change in sentiment after a prior downtrend.",
+        "Reflects an attempt by buyers to seize control, even if temporarily facing initial resistance.",
+        "Signals a possible shift in market direction, where bearish dominance may be waning."
     ],
     "Shooting Star": [
-        "A bearish reversal pattern that signals a potential peak in an uptrend.",
-        "Shows that buyers pushed prices higher initially, but sellers regained control and forced a lower close.",
-        "Often indicates that an upward trend may be losing momentum, potentially reversing to a downtrend."
+        "Indicates a potential exhaustion of buying momentum after a bullish move.",
+        "Reflects an initial push by buyers that fails to maintain traction, eventually succumbing to selling pressure.",
+        "Often suggests that an uptrend may be nearing its peak, with a possible reversal on the horizon."
     ],
     "Hanging Man": [
-        "A bearish pattern appearing during an uptrend, suggesting that selling pressure may be increasing.",
-        "Although buyers managed to push prices back up by the close, the long lower shadow indicates vulnerability in the upward trend.",
-        "Reflects a possible weakening of the prevailing uptrend, signaling caution."
+        "Appears during an uptrend, hinting at increasing vulnerability in continued bullish momentum.",
+        "Shows that while buyers managed to recover ground, underlying selling pressure remains significant.",
+        "Acts as a cautionary signal, suggesting that a prevailing uptrend may be weakening."
     ],
     "Bullish Closing Marubozu": [
-        "A bullish candlestick pattern that reflects strong buying interest throughout most of the session, with a slight dip at the beginning.",
-        "The presence of a small lower wick shows some early selling pressure, but buyers eventually dominated.",
-        "Suggests that buyers maintained control from the opening to the closing price."
+        "A pattern that indicates robust buying interest throughout the trading session, despite some early challenges.",
+        "Shows that buyers maintained control from the beginning to the end, despite brief attempts by sellers.",
+        "Reflects overall bullish sentiment and confidence in an upward move."
     ],
     "Bearish Closing Marubozu": [
-        "A bearish candlestick pattern that shows a consistent decline in price, despite some initial buying effort.",
-        "Characterized by a small upper wick, reflecting brief upward movement before sellers took over.",
-        "Indicates that selling pressure was dominant throughout most of the session."
+        "Represents a session marked by consistent downward pressure, overcoming initial buying efforts.",
+        "Indicates that sellers dominated the trading session despite a brief upward attempt.",
+        "Often suggests sustained bearish control, hinting at further downward movement."
     ],
     "Long Day Bullish": [
-        "A pattern reflecting sustained upward movement, with the session opening near the low and closing near the high.",
-        "Represents strong buying momentum with minimal price fluctuations.",
-        "Typically suggests confidence among buyers, often occurring at the beginning of an uptrend."
+        "Reflects strong upward movement with little resistance, showing buyers' confidence in a positive trend.",
+        "Demonstrates momentum favoring the bulls, potentially marking the start of an uptrend.",
+        "Often viewed as a signal of continued buying interest and market optimism."
     ],
     "Long Day Bearish": [
-        "A pattern indicating a continuous downward movement throughout the session.",
-        "Shows that sellers were in control, pushing prices down from the high at the open to the low at the close.",
-        "Reflects a dominant selling force, often signaling the start of a downtrend."
+        "Indicates a sustained period of selling pressure, with sellers driving prices lower throughout the session.",
+        "Reflects a strong bearish sentiment, possibly marking the start of a new downtrend.",
+        "Shows that sellers maintained control from start to finish, highlighting confidence in a negative outlook."
     ],
     "Short Day Bullish": [
-        "A pattern representing minimal price action within a session, characterized by a small trading range.",
-        "Reflects a period of low volatility and market indecision.",
-        "May occur within consolidation phases or as part of larger patterns."
+        "Represents a session with limited price movement, indicating a pause in market activity.",
+        "Often occurs during periods of consolidation or when the market is awaiting further signals.",
+        "Reflects a balance in buying and selling forces, with minimal directional bias."
     ],
     "Short Day Bearish": [
-        "A pattern indicating limited downward movement, with prices staying in a narrow range.",
-        "Reflects a lack of strong selling pressure and low volatility.",
-        "Typically occurs during periods of market consolidation or uncertainty."
+        "Signals a day with constrained downward movement, lacking strong selling momentum.",
+        "Typically appears in periods of low volatility or uncertainty, reflecting limited market activity.",
+        "Shows hesitation among market participants, with neither side gaining substantial control."
     ],
     "Bullish Opening Marubozu": [
-        "A bullish candlestick pattern where the market opens at the lowest point and prices rise steadily.",
-        "Indicates strong buying sentiment right from the session's start, without any downward movement.",
-        "Suggests buyers were in control, pushing prices upward throughout the session."
+        "Represents a strong bullish sentiment from the start of the session, with buyers taking the lead.",
+        "Reflects a confident market outlook, often seen in the initial stages of an upward trend.",
+        "Suggests that buying interest remained strong and consistent throughout the trading period."
     ],
     "Bearish Opening Marubozu": [
-        "A bearish candlestick pattern where the market opens at the highest point and prices decline steadily.",
-        "Shows strong selling sentiment right from the beginning, with no upward movement.",
-        "Reflects the dominance of sellers, driving prices down throughout the trading session."
+        "Indicates that sellers dominated from the opening, driving prices lower throughout the session.",
+        "Reflects a negative market sentiment, often observed at the beginning of a bearish trend.",
+        "Shows that selling pressure was consistent and overwhelming from the outset."
     ],
     "Spinning Top": [
-        "A pattern that indicates market indecision, characterized by a small body and long wicks.",
-        "Suggests a balance between buying and selling pressures with neither side gaining control.",
-        "Often found in periods of consolidation, potentially signaling a reversal or continuation."
+        "Signals a period of indecision where neither buying nor selling pressure is dominant.",
+        "Often indicates that the market is in a state of equilibrium, with potential for a reversal or continuation.",
+        "Commonly found during consolidation phases or near turning points."
     ],
     "Long-legged Doji": [
-        "A pattern with extended wicks on both sides, showing significant volatility within the session.",
-        "Represents indecision, where both buyers and sellers were active but neither managed to secure control.",
-        "Typically occurs at market turning points, suggesting a possible change in trend."
+        "Represents a tug-of-war between buyers and sellers, reflecting significant volatility without a clear winner.",
+        "Indicates heightened uncertainty, often occurring at potential reversal points in the market.",
+        "Highlights both aggressive buying and selling, suggesting a possible shift in market direction."
     ],
     "Gravestone Doji": [
-        "A bearish pattern where the open and close are near the session's low, with a long upper wick.",
-        "Indicates that buyers pushed prices higher, but sellers ultimately regained control by the close.",
-        "Commonly found at the end of an uptrend, suggesting a potential reversal."
+        "Reflects a situation where initial buying interest is overtaken by selling pressure by the session's end.",
+        "Often observed at the end of an uptrend, hinting at potential bearish reversal.",
+        "Indicates a shift from bullish to bearish sentiment as sellers regain control."
     ],
     "Dragonfly Doji": [
-        "A bullish pattern where the open and close are near the session's high, with a long lower wick.",
-        "Shows that sellers drove prices down, but buyers managed to push them back up by the close.",
-        "Often appears at the end of a downtrend, indicating a possible reversal."
+        "Shows a session where selling pressure dominates initially, but buyers recover to close near the highs.",
+        "Commonly found at the end of a downtrend, suggesting a potential bullish reversal.",
+        "Signals a change in market sentiment, where sellers lose control to the buyers."
     ],
     "Bullish Engulfing": [
-        "A two-candlestick pattern where a smaller bearish candle is followed by a larger bullish candle.",
-        "The second candle completely engulfs the first, signaling a shift from selling to buying dominance.",
-        "Suggests the beginning of a potential upward reversal in the market."
+        "Indicates a shift from bearish to bullish momentum over two consecutive sessions.",
+        "Reflects strong buying interest that overpowers the prior period's selling pressure.",
+        "Often signals a potential upward reversal, suggesting renewed optimism among buyers."
     ],
     "Bearish Engulfing": [
-        "A two-candlestick pattern where a smaller bullish candle is followed by a larger bearish candle.",
-        "The second candle completely engulfs the first, indicating a shift from buying to selling pressure.",
-        "Often signifies the start of a downward reversal in the market."
+        "Marks a transition from bullish to bearish sentiment over two consecutive sessions.",
+        "Highlights increasing selling pressure that dominates after an initial period of buying.",
+        "Suggests the start of a potential downward reversal, reflecting a shift in market control."
     ]
 }
