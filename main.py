@@ -14,20 +14,17 @@ from termcolor import colored
 # Initialize colorama for Windows compatibility and auto-reset
 init(autoreset=True)
 
-
 # Function to dynamically import a module from a given file path
-def import_patterns(file_name):
+def import_module(file_name):
     module_name = file_name.replace('.py', '')
     spec = importlib.util.spec_from_file_location(module_name, file_name)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    return module.single_patterns
-
+    return module
 
 # Function to clear the screen
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
-
 
 # Function to find all .py files in the current directory
 def find_pattern_files():
@@ -42,12 +39,10 @@ def find_pattern_files():
     )
     return sorted_files
 
-
 # Function to convert file names to a more readable format
 def convert_filename_to_display_name(filename):
     name = filename.replace('_', ' ').replace('.py', '')
     return name.title()
-
 
 # Function to display the file selection menu and get user choice
 def display_file_menu(pattern_files):
@@ -62,85 +57,27 @@ def display_file_menu(pattern_files):
     ]
     return selected_files
 
-
-# Function to generate trading action advice
-def generate_trading_action(pattern_name):
-    actions = {
-        "Doji": "This pattern indicates indecision in the market; look for confirmation near support or resistance levels.",
-        "Bullish Marubozu": "This pattern suggests strong buying pressure; consider entering a long position if near support.",
-        "Bearish Marubozu": "This pattern suggests strong selling pressure; consider entering a short position if near resistance.",
-        "Hammer": "This pattern indicates a potential reversal; consider buying if it forms at a support level.",
-        "Inverted Hammer": "This pattern may indicate a bullish reversal; look for confirmation near support.",
-        "Shooting Star": "This pattern signals a potential bearish reversal; consider selling if it forms at resistance.",
-        "Hanging Man": "This pattern suggests a potential reversal; consider selling if it forms at resistance."
-    }
-    return actions.get(pattern_name, "Analyze this pattern in conjunction with support and resistance levels.")
-
-
 # Function to censor the pattern name in a given text
 def censor_text(text, pattern_name):
     # Replace occurrences of the pattern name with "This pattern"
     return text.replace(f"The {pattern_name} pattern", "This pattern").replace(pattern_name, "This pattern")
 
-
-# Function to generate explanations for each pattern
-def generate_explanations(pattern_name):
-    explanations = {
-        "Doji": [
-            "This pattern represents indecision in the market, as buyers and sellers are equally matched.",
-            "The pattern suggests that the previous trend may be losing strength, and a reversal could be imminent.",
-            "Traders often look for this pattern near support or resistance levels as a potential reversal signal."
-        ],
-        "Bullish Marubozu": [
-            "This pattern shows strong buying interest, with no wicks indicating control by buyers throughout the period.",
-            "The pattern forms when the open is at the low and the close is at the high, suggesting a continuation of a bullish trend.",
-            "If this pattern appears near a support level, it could be a signal to enter a long position."
-        ],
-        "Bearish Marubozu": [
-            "This pattern shows strong selling pressure, with no wicks indicating control by sellers throughout the period.",
-            "The pattern forms when the open is at the high and the close is at the low, suggesting a continuation of a bearish trend.",
-            "If this pattern appears near a resistance level, it could be a signal to enter a short position."
-        ],
-        "Hammer": [
-            "This pattern suggests that a downtrend may be coming to an end, as buyers managed to push the price back up after a significant decline.",
-            "The pattern often forms at the bottom of a downtrend and is characterized by a small body with a long lower wick.",
-            "If this pattern forms near a support level, it can indicate a buying opportunity as it suggests the potential for a reversal."
-        ],
-        "Inverted Hammer": [
-            "This pattern suggests a potential bullish reversal as it indicates buying pressure despite opening near the low of the session.",
-            "The pattern is characterized by a long upper wick and a small body, signaling that buyers tried to push the price higher.",
-            "If this pattern appears at the end of a downtrend, it could be an early sign of a bullish reversal."
-        ],
-        "Shooting Star": [
-            "This pattern is a bearish signal that forms after an uptrend, indicating a potential reversal to the downside.",
-            "The pattern has a small body near the low of the session with a long upper wick, suggesting that buyers were unable to maintain control.",
-            "If this pattern forms at a resistance level, it could be a signal to consider shorting the market."
-        ],
-        "Hanging Man": [
-            "This pattern is a bearish signal that forms at the top of an uptrend, indicating that selling pressure is increasing.",
-            "The pattern is similar to the Hammer but occurs after a bullish trend, suggesting a potential reversal to the downside.",
-            "Traders look for this pattern near resistance levels to signal a selling opportunity."
-        ]
-    }
-    return explanations.get(pattern_name, ["This pattern indicates indecision in the market."])
-
-
 # Function to generate a quiz based on selected patterns
-def generate_quiz(candlestick_patterns):
+def generate_quiz(candlestick_patterns, explanations, trading_actions):
     quiz_pool = []
     for category, ascii_art in candlestick_patterns.items():
         ascii_art_str = "\n".join(ascii_art)
         description = f"The {category} pattern is used to identify potential market reversals or trends."
         censored_description = censor_text(description, category)
-        explanations = generate_explanations(category)
-        quiz_pool.append((category, censored_description.capitalize(), ascii_art_str, explanations))
+        explanation = explanations.get(category, ["This pattern indicates indecision in the market."])
+        trading_action = trading_actions.get(category, "Analyze this pattern in conjunction with support and resistance levels.")
+        quiz_pool.append((category, censored_description.capitalize(), ascii_art_str, explanation, trading_action))
     random.shuffle(quiz_pool)  # Randomize the order of questions
     return quiz_pool
 
-
 # Function to present the quiz
 def present_quiz(quiz_pool):
-    for i, (name, description, ascii_art, explanations) in enumerate(quiz_pool, 1):
+    for i, (name, description, ascii_art, explanations, trading_action) in enumerate(quiz_pool, 1):
         clear_screen()
         print(colored(f"Question {i}: ", 'magenta', attrs=['bold']) +
               colored("What is this candlestick pattern?", 'magenta', attrs=['underline']))
@@ -148,17 +85,17 @@ def present_quiz(quiz_pool):
         print(Fore.CYAN + "\nOptions:" + Style.RESET_ALL)
 
         # Generate multiple-choice options for the pattern name
-        options = random.sample(quiz_pool, min(3, len(quiz_pool)))  # Adjust number of options to the available pool size
-        if (name, description, ascii_art, explanations) not in options:
-            options[0] = (name, description, ascii_art, explanations)
+        options = random.sample(quiz_pool, min(5, len(quiz_pool)))  # Adjust number of options to 5
+        if (name, description, ascii_art, explanations, trading_action) not in options:
+            options[0] = (name, description, ascii_art, explanations, trading_action)
         random.shuffle(options)  # Randomize the position of the correct answer
 
-        correct_option = options.index((name, description, ascii_art, explanations))
-        option_letters = ['a', 'b', 'c']
-        for idx, (opt_name, _, _, _) in enumerate(options):
+        correct_option = options.index((name, description, ascii_art, explanations, trading_action))
+        option_letters = ['A', 'B', 'C', 'D', 'E']
+        for idx, (opt_name, _, _, _, _) in enumerate(options):
             print(f"{option_letters[idx]}. {opt_name}")
 
-        user_answer = input(Fore.YELLOW + "Your answer: " + Style.RESET_ALL).strip().lower()
+        user_answer = input(Fore.YELLOW + "Your answer: " + Style.RESET_ALL).strip().upper()
         if user_answer == option_letters[correct_option]:
             print(colored("\nCorrect!\n", 'green', attrs=['bold']))
 
@@ -166,29 +103,30 @@ def present_quiz(quiz_pool):
             explanation_options = explanations.copy()
             random.shuffle(explanation_options)
             print(colored("Guess the Explanation:", 'cyan', attrs=['bold']))
-            for idx, exp in enumerate(explanation_options):
+            for idx, exp in enumerate(explanation_options[:5]):  # Ensure only 5 options
                 print(f"{option_letters[idx]}. {exp}")
 
             correct_explanation = explanation_options.index(explanations[0])
-            user_explanation = input(Fore.YELLOW + "Your explanation: " + Style.RESET_ALL).strip().lower()
+            user_explanation = input(Fore.YELLOW + "Your explanation: " + Style.RESET_ALL).strip().upper()
             if user_explanation == option_letters[correct_explanation]:
                 print(colored("\nCorrect Explanation!\n", 'green', attrs=['bold']))
 
                 # Ask user to guess the trading action
-                trading_action = generate_trading_action(name)
+                # Ensure trading actions are kept separate and distinct
+                trading_options = [trading_action]
                 available_trading_actions = [
-                    generate_trading_action(n) for n, _, _, _ in quiz_pool if n != name
+                    action for name, _, _, _, action in quiz_pool if action != trading_action
                 ]
-                trading_options = [trading_action] + random.sample(
-                    available_trading_actions, min(2, len(available_trading_actions))
-                )
+                trading_options += random.sample(
+                    available_trading_actions, min(4, len(available_trading_actions))
+                )  # Limit to 5 options total
                 random.shuffle(trading_options)
                 print(colored("Guess the Trading Action:", 'cyan', attrs=['bold']))
                 for idx, action in enumerate(trading_options):
                     print(f"{option_letters[idx]}. {action}")
 
                 correct_action = trading_options.index(trading_action)
-                user_action = input(Fore.YELLOW + "Your trading action: " + Style.RESET_ALL).strip().lower()
+                user_action = input(Fore.YELLOW + "Your trading action: " + Style.RESET_ALL).strip().upper()
                 if user_action == option_letters[correct_action]:
                     print(colored("\nCorrect Trading Action!\n", 'green', attrs=['bold']))
                 else:
@@ -200,10 +138,16 @@ def present_quiz(quiz_pool):
 
         input(Fore.YELLOW + "\nPress Enter to continue..." + Style.RESET_ALL)
 
-
 # Main function to run the quiz
 def main():
     clear_screen()
+
+    # Import explanations and trading actions from separate files
+    explanations_module = import_module('explanation.py')
+    trading_actions_module = import_module('trading_actions.py')
+
+    explanations = explanations_module.explanations
+    trading_actions = trading_actions_module.trading_actions
 
     # Step 1: Find all .py pattern files in the current directory
     pattern_files = find_pattern_files()
@@ -221,7 +165,7 @@ def main():
     candlestick_patterns = {}
     for file in selected_files:
         try:
-            patterns = import_patterns(file)
+            patterns = import_module(file).single_patterns
             candlestick_patterns.update(patterns)
         except FileNotFoundError as e:
             print(Fore.RED + f"Error loading {file}: {e}" + Style.RESET_ALL)
@@ -235,9 +179,8 @@ def main():
         return
 
     # Step 4: Generate and present the quiz
-    quiz_pool = generate_quiz(candlestick_patterns)
+    quiz_pool = generate_quiz(candlestick_patterns, explanations, trading_actions)
     present_quiz(quiz_pool)
-
 
 if __name__ == "__main__":
     main()
