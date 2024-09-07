@@ -3,7 +3,6 @@ from colorama import init, Fore
 # Initialize colorama for color support in terminal
 init(autoreset=True)
 
-# DEBUG = True
 DEBUG = False
 
 patterns = {
@@ -224,7 +223,7 @@ patterns = {
 }
 
 def draw_double_patterns():
-    for pattern, art in single_patterns.items():
+    for pattern, art in patterns.items():
         print(f'\n{pattern}:\n' + '\n'.join(art))
 
 # Call the function to display double candlestick patterns
