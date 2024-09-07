@@ -1,10 +1,3 @@
-"""
-Candlestick Pattern Quiz Script
-
-This script dynamically imports candlestick pattern files, presents a quiz to the user to identify patterns,
-and provides explanations and trading actions based on user responses.
-"""
-
 import random
 import os
 import importlib.util
@@ -59,7 +52,6 @@ def display_file_menu(pattern_files):
 
 # Function to censor the pattern name in a given text
 def censor_text(text, pattern_name):
-    # Replace occurrences of the pattern name with "This pattern"
     return text.replace(f"The {pattern_name} pattern", "This pattern").replace(pattern_name, "This pattern")
 
 # Function to generate a quiz based on selected patterns
@@ -75,9 +67,17 @@ def generate_quiz(candlestick_patterns, explanations, trading_actions):
     random.shuffle(quiz_pool)  # Randomize the order of questions
     return quiz_pool
 
+# Function to select explanations with similar functions
+def get_similar_explanations(correct_pattern, explanations_dict):
+    # Ensure the explanations dictionary has keys
+    similar_patterns = [key for key in explanations_dict if key != correct_pattern]
+    incorrect_explanations = random.sample(similar_patterns, 2)  # Select 2 random other patterns
+    # Extract the explanations: 1 correct + 2 incorrect
+    return [explanations_dict[correct_pattern][0]] + [explanations_dict[pattern][0] for pattern in incorrect_explanations]
+
 # Function to present the quiz
-def present_quiz(quiz_pool):
-    for i, (name, description, ascii_art, explanations, trading_action) in enumerate(quiz_pool, 1):
+def present_quiz(quiz_pool, explanations):
+    for i, (name, description, ascii_art, explanations_list, trading_action) in enumerate(quiz_pool, 1):
         clear_screen()
         print(colored(f"Question {i}: ", 'magenta', attrs=['bold']) +
               colored("What is this candlestick pattern?", 'magenta', attrs=['underline']))
@@ -85,12 +85,12 @@ def present_quiz(quiz_pool):
         print(Fore.CYAN + "\nOptions:" + Style.RESET_ALL)
 
         # Generate multiple-choice options for the pattern name
-        options = random.sample(quiz_pool, min(5, len(quiz_pool)))  # Adjust number of options to 5
-        if (name, description, ascii_art, explanations, trading_action) not in options:
-            options[0] = (name, description, ascii_art, explanations, trading_action)
+        options = random.sample(quiz_pool, min(5, len(quiz_pool)))  # Ensure 5 options for pattern name
+        if (name, description, ascii_art, explanations_list, trading_action) not in options:
+            options[0] = (name, description, ascii_art, explanations_list, trading_action)
         random.shuffle(options)  # Randomize the position of the correct answer
 
-        correct_option = options.index((name, description, ascii_art, explanations, trading_action))
+        correct_option = options.index((name, description, ascii_art, explanations_list, trading_action))
         option_letters = ['A', 'B', 'C', 'D', 'E']
         for idx, (opt_name, _, _, _, _) in enumerate(options):
             print(f"{option_letters[idx]}. {opt_name}")
@@ -100,26 +100,25 @@ def present_quiz(quiz_pool):
             print(colored("\nCorrect!\n", 'green', attrs=['bold']))
 
             # Ask user to guess the explanation
-            explanation_options = explanations.copy()
-            random.shuffle(explanation_options)
+            explanation_options = get_similar_explanations(name, explanations)  # Get 3 explanation options
+            random.shuffle(explanation_options)  # Randomize explanation options
             print(colored("Guess the Explanation:", 'cyan', attrs=['bold']))
-            for idx, exp in enumerate(explanation_options[:5]):  # Ensure only 5 options
+            for idx, exp in enumerate(explanation_options):
                 print(f"{option_letters[idx]}. {exp}")
 
-            correct_explanation = explanation_options.index(explanations[0])
+            correct_explanation = explanation_options.index(explanations[name][0])
             user_explanation = input(Fore.YELLOW + "Your explanation: " + Style.RESET_ALL).strip().upper()
             if user_explanation == option_letters[correct_explanation]:
                 print(colored("\nCorrect Explanation!\n", 'green', attrs=['bold']))
 
                 # Ask user to guess the trading action
-                # Ensure trading actions are kept separate and distinct
                 trading_options = [trading_action]
                 available_trading_actions = [
                     action for name, _, _, _, action in quiz_pool if action != trading_action
                 ]
                 trading_options += random.sample(
-                    available_trading_actions, min(4, len(available_trading_actions))
-                )  # Limit to 5 options total
+                    available_trading_actions, min(2, len(available_trading_actions))
+                )  # Ensure 3 options for trading actions
                 random.shuffle(trading_options)
                 print(colored("Guess the Trading Action:", 'cyan', attrs=['bold']))
                 for idx, action in enumerate(trading_options):
@@ -132,7 +131,7 @@ def present_quiz(quiz_pool):
                 else:
                     print(colored(f"\nWrong Trading Action! The correct action is: {trading_action}\n", 'red', attrs=['bold']))
             else:
-                print(colored(f"\nWrong Explanation! The correct explanation is: {explanations[0]}\n", 'red', attrs=['bold']))
+                print(colored(f"\nWrong Explanation! The correct explanation is: {explanations[name][0]}\n", 'red', attrs=['bold']))
         else:
             print(colored(f"\nWrong! The correct answer is: {name}\n", 'red', attrs=['bold']))
 
@@ -165,7 +164,7 @@ def main():
     candlestick_patterns = {}
     for file in selected_files:
         try:
-            patterns = import_module(file).single_patterns
+            patterns = import_module(file).patterns
             candlestick_patterns.update(patterns)
         except FileNotFoundError as e:
             print(Fore.RED + f"Error loading {file}: {e}" + Style.RESET_ALL)
@@ -180,7 +179,7 @@ def main():
 
     # Step 4: Generate and present the quiz
     quiz_pool = generate_quiz(candlestick_patterns, explanations, trading_actions)
-    present_quiz(quiz_pool)
+    present_quiz(quiz_pool, explanations)
 
 if __name__ == "__main__":
     main()
