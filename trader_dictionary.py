@@ -23,4 +23,5 @@ trading_terms = {
     "Volatility": "Represents the degree of fluctuation in a given price or asset price,\nreflecting uncertainty and risk associated with an investment.",
     "Broker": "A company that arranges trades in the financial markets for traders in return for a commission.",
     "Modern Prop Trading": "Firms that seek out novice traders and provide tools, education,\nand an environment to experiment with trading skills.",
+
 }

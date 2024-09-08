@@ -207,5 +207,6 @@ def main():
         quiz_pool = generate_quiz(candlestick_patterns, explanations, trading_actions, trading_terms)
         present_quiz(quiz_pool, explanations)
 
+
 if __name__ == "__main__":
     main()
