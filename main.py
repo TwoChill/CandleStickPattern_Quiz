@@ -7,14 +7,29 @@ from colorama import init
 init(autoreset=True)
 
 # ANSI escape codes for colors and styles
+BLACK = "\033[0;30m"
 RED = "\033[0;31m"
 GREEN = "\033[0;32m"
-CYAN = "\033[0;36m"
-YELLOW = "\033[1;33m"
+BROWN = "\033[0;33m"
+BLUE = "\033[0;34m"
 PURPLE = "\033[0;35m"
+CYAN = "\033[0;36m"
+LIGHT_GRAY = "\033[0;37m"
+DARK_GRAY = "\033[1;30m"
+LIGHT_RED = "\033[1;31m"
+LIGHT_GREEN = "\033[1;32m"
+YELLOW = "\033[1;33m"
+LIGHT_BLUE = "\033[1;34m"
+LIGHT_PURPLE = "\033[1;35m"
+LIGHT_CYAN = "\033[1;36m"
+LIGHT_WHITE = "\033[1;37m"
 BOLD = "\033[1m"
+FAINT = "\033[2m"
 ITALIC = "\033[3m"
 UNDERLINE = "\033[4m"
+BLINK = "\033[5m"
+NEGATIVE = "\033[7m"
+CROSSED = "\033[9m"
 RESET = "\033[0m"
 
 # Function to dynamically import a module from a given file path
@@ -69,9 +84,9 @@ def pattern_name_quiz(candlestick_patterns):
     user_answer = user_answer.upper()
 
     if correct_pattern in options and user_answer == option_letters[options.index(correct_pattern)]:
-        print(f"{GREEN}{BOLD}\nCorrect! The pattern is {correct_pattern}.\n{RESET}")
+        print(f"{GREEN}{ITALIC}{BOLD}\n{NEGATIVE}Correct!{RESET}\n")
     else:
-        print(f"{RED}{ITALIC}{BOLD}\nWrong! The correct answer is: {RESET}{GREEN}{UNDERLINE}{BOLD}{correct_pattern}{RESET}\n")
+        print(f"{RED}{ITALIC}{BOLD}\n{NEGATIVE}Wrong!{RESET}\n\n{RED}The correct answer is: {RESET}{GREEN}{UNDERLINE}{BOLD}{correct_pattern}{RESET}\n")
 
     next_step = get_input_with_exit(f"{YELLOW}Press Enter to continue or type 'return' to go back, 'exit' to quit: {RESET}")
     if next_step is None:
